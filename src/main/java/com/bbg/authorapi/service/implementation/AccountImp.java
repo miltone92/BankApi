@@ -46,4 +46,18 @@ public class AccountImp extends AccountService{
 
     }
 
+    @Override
+    public Account findByOwner(String owner) {
+      AccountDto dto = accountRepo.findByOwner(owner);
+      Account model = new Account(dto);
+      return model;
+    }
+
+    @Override
+    public Account findByAccountNumber(String number) {
+        AccountDto dto = accountRepo.findByAccountNumber("6828334191");
+        Account model = new Account(dto);
+        return model;
+    }
+
 }

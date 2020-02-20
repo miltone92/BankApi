@@ -7,6 +7,8 @@ public class Account {
     int id;
     int balance;
     String type;
+    String accountNumber;
+    String IBAN;
     String currency;
     String owner;
 
@@ -14,13 +16,14 @@ public class Account {
 
     }
 
-    public Account(int id, int balance, String type, String currency, String owner){
+    public Account(int balance, String type, String currency, String owner, String accountNumber, String IBAN){
         this.balance = balance;
         this.currency = currency;
         this.type = type;
         this.currency = currency;
         this.owner = owner;
-        this.id = id;
+        this.accountNumber = accountNumber;
+        this.IBAN = IBAN;
     }
 
     public Account( AccountDto account){
@@ -30,6 +33,8 @@ public class Account {
         this.currency = account.getCurrency();
         this.owner = account.getOwner();
         this.id = account.getId();
+        this.IBAN = account.getIBAN();
+        this.accountNumber = account.getAccountNumber();
     }
     
 
@@ -71,6 +76,22 @@ public class Account {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getIBAN() {
+        return IBAN;
+    }
+
+    public void setIBAN(String iBAN) {
+        IBAN = iBAN;
     }
 
     

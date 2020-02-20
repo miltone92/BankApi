@@ -27,7 +27,15 @@ public class UserImp extends UserService {
            users.add(new User(userDto));
        }
         return users;
-    }
+   }
+
+   
+   @Override
+   public User findByEmail(String email) {
+      UserDto dto = userRepo.findByEmail(email);
+      User model = new User(dto);
+      return model;
+   }
 
     @Override
     public User findById(int id) {
@@ -43,6 +51,13 @@ public class UserImp extends UserService {
     public void delete(User user) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public User findByEmailAndPw(String email, String pw) {
+        UserDto dto = userRepo.findOneByEmailAndPasswordEquals(email, pw);
+        User model = new User(dto);
+        return model;
     }
 
 

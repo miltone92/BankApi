@@ -1,6 +1,6 @@
 package com.bbg.authorapi.controller;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import com.bbg.authorapi.model.Account;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 @CrossOrigin
 @RequestMapping("api/v1/account")
@@ -30,8 +30,25 @@ public class AccountController{
     }
 
     @GetMapping
-    public List<Account> getAll() {
-       return accountService.find();
+    public List<Account> getAccounts(@RequestParam(value = "owner", defaultValue = "" )String owner, @RequestParam(value = "number", defaultValue = "" )String number) {
+       
+        if(owner.equals("") && number.equals("")){
+            //find all accounts
+            return accountService.find();
+        }else if (!owner.equals("")){
+            //find account by owner
+            List<Account> models = new ArrayList<Account>();
+            Account foundModel = accountService.findByOwner(owner);
+            models.add(foundModel);
+            return models;
+       }else if (!number.equals("")){
+            //find account by number
+            List<Account> models = new ArrayList<Account>();
+            Account foundModel = accountService.findByAccountNumber(owner);
+            models.add(foundModel);
+            return models;
+       }
 
+       return null;
     }
 }

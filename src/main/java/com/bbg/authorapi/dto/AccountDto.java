@@ -19,6 +19,8 @@ public class AccountDto{
     String type;
     String currency;
     String owner;
+    String accountNumber;
+    String IBAN;
 
     public AccountDto(){
 
@@ -31,6 +33,8 @@ public class AccountDto{
         this.currency = currency;
         this.owner = owner;
         this.id = id;
+        this.accountNumber = accountNumber;
+        this.IBAN = IBAN;
     }
 
     public AccountDto( Account account){
@@ -40,6 +44,8 @@ public class AccountDto{
         this.currency = account.getCurrency();
         this.owner = account.getOwner();
         this.id = account.getId();
+        this.IBAN = account.getIBAN();
+        this.accountNumber = account.getAccountNumber();
     }
     
 
@@ -82,5 +88,23 @@ public class AccountDto{
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getIBAN() {
+        return IBAN;
+    }
+
+    public void setIBAN(String iBAN) {
+        IBAN = iBAN;
+    }
+
+    
 }
 
