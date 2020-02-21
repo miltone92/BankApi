@@ -44,7 +44,7 @@ public class AccountController{
        }else if (!number.equals("")){
             //find account by number
             List<Account> models = new ArrayList<Account>();
-            Account foundModel = accountService.findByAccountNumber(owner);
+            Account foundModel = accountService.findByAccountNumber(number);
             models.add(foundModel);
             return models;
        }

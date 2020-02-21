@@ -9,5 +9,5 @@ public class AuthoapiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AuthoapiApplication.class, args);
 	}
-
+ 
 }

@@ -3,9 +3,11 @@ package com.bbg.authorapi.service.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bbg.authorapi.dto.AccountDto;
 import com.bbg.authorapi.dto.MovementDto;
 import com.bbg.authorapi.model.Movement;
 import com.bbg.authorapi.repositories.MovementRepo;
+import com.bbg.authorapi.repositories.AccountRepo;
 import com.bbg.authorapi.service.MovementService;
 
 import org.springframework.stereotype.Service;
@@ -14,9 +16,11 @@ import org.springframework.stereotype.Service;
 public class MovementImp extends MovementService{
 
     private MovementRepo movementRepo;
-
-    public MovementImp(MovementRepo movementRepo){
+    private AccountRepo accountRepo;
+    
+    public MovementImp(MovementRepo movementRepo, AccountRepo accountRepo){
         this.movementRepo = movementRepo;
+        this.accountRepo = accountRepo;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class MovementImp extends MovementService{
     
     @Override
     public List<Movement> findByDestination(String destination) {
-        List<MovementDto> dtos = movementRepo.findByDestination(destination);
+        List<MovementDto> dtos = movementRepo.findByDestinationOrOriginEquals(destination, destination);
         List<Movement> models = new ArrayList<Movement>();
 
         for (MovementDto movementDto : dtos) {
@@ -53,7 +57,17 @@ public class MovementImp extends MovementService{
     @Override
     public void save(Movement movement) {
         movementRepo.save(new MovementDto(movement));
+        AccountDto origin = accountRepo.findByAccountNumber(movement.getOrigin());
+        AccountDto destination = accountRepo.findByAccountNumber(movement.getDestination());
+      
+        //update balance
+        int amount = movement.getAmount();
+        origin.setBalance(origin.getBalance() - amount);
+        destination.setBalance(destination.getBalance() + amount);
 
+        accountRepo.save(origin);
+        accountRepo.save(destination);
+        
     }
 
     @Override

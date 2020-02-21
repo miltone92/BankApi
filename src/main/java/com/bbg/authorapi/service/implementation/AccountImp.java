@@ -55,7 +55,8 @@ public class AccountImp extends AccountService{
 
     @Override
     public Account findByAccountNumber(String number) {
-        AccountDto dto = accountRepo.findByAccountNumber("6828334191");
+        System.out.println(number);  
+        AccountDto dto = accountRepo.findByAccountNumber(number);
         Account model = new Account(dto);
         return model;
     }
