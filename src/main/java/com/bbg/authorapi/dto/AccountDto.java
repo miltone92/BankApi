@@ -21,12 +21,13 @@ public class AccountDto{
     String owner;
     String accountNumber;
     String IBAN;
+    String ownerName;
 
     public AccountDto(){
 
     }
 
-    public AccountDto(int id, int balance, String type, String currency, String owner){
+    public AccountDto(int id, int balance, String type, String currency, String owner, String ownerName){
         this.balance = balance;
         this.currency = currency;
         this.type = type;
@@ -35,6 +36,7 @@ public class AccountDto{
         this.id = id;
         this.accountNumber = accountNumber;
         this.IBAN = IBAN;
+        this.ownerName = ownerName;
     }
 
     public AccountDto( Account account){
@@ -46,6 +48,7 @@ public class AccountDto{
         this.id = account.getId();
         this.IBAN = account.getIBAN();
         this.accountNumber = account.getAccountNumber();
+        this.ownerName = account.getOwnerName();
     }
     
 
@@ -103,6 +106,14 @@ public class AccountDto{
 
     public void setIBAN(String iBAN) {
         IBAN = iBAN;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     

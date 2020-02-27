@@ -37,9 +37,7 @@ public class AccountController{
             return accountService.find();
         }else if (!owner.equals("")){
             //find account by owner
-            List<Account> models = new ArrayList<Account>();
-            Account foundModel = accountService.findByOwner(owner);
-            models.add(foundModel);
+            List<Account> models = accountService.findByOwner(owner);
             return models;
        }else if (!number.equals("")){
             //find account by number

@@ -39,12 +39,13 @@ public class UserController {
             //get all users
             return userService.find();
         } else if (!email.equals("") && pw.equals("")){
-            //find by email and pw
+            //fin by just emai
             User foundModel = userService.findByEmail(email);
             models.add(foundModel);
             return models;
 
         }else if(!email.equals("") && !pw.equals("")){
+            //find by email and pw
             User foundModel = userService.findByEmailAndPw(email, pw);
             models.add(foundModel);
             return models;

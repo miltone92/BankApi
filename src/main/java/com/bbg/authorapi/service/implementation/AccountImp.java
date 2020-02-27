@@ -47,10 +47,19 @@ public class AccountImp extends AccountService{
     }
 
     @Override
-    public Account findByOwner(String owner) {
-      AccountDto dto = accountRepo.findByOwner(owner);
-      Account model = new Account(dto);
-      return model;
+    public List<Account> findByOwner(String owner) {
+      List<AccountDto> dtos = accountRepo.findByOwner(owner);
+      List<Account> models = new ArrayList<Account>();
+
+      for (AccountDto dto : dtos) {
+        Account model = new Account(dto);
+        models.add(model);
+    }
+
+    return models;
+
+
+
     }
 
     @Override

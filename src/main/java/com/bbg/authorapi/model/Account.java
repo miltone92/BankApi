@@ -11,12 +11,13 @@ public class Account {
     String IBAN;
     String currency;
     String owner;
+    String ownerName;
 
     public Account(){
 
     }
 
-    public Account(int balance, String type, String currency, String owner, String accountNumber, String IBAN){
+    public Account(int balance, String type, String currency, String owner, String accountNumber, String IBAN, String ownerName){
         this.balance = balance;
         this.currency = currency;
         this.type = type;
@@ -24,6 +25,7 @@ public class Account {
         this.owner = owner;
         this.accountNumber = accountNumber;
         this.IBAN = IBAN;
+        this.ownerName = ownerName;
     }
 
     public Account( AccountDto account){
@@ -35,6 +37,7 @@ public class Account {
         this.id = account.getId();
         this.IBAN = account.getIBAN();
         this.accountNumber = account.getAccountNumber();
+        this.ownerName = account.getOwnerName();
     }
     
 
@@ -92,6 +95,14 @@ public class Account {
 
     public void setIBAN(String iBAN) {
         IBAN = iBAN;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     

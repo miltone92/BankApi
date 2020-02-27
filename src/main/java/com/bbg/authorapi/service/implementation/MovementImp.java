@@ -59,14 +59,20 @@ public class MovementImp extends MovementService{
         movementRepo.save(new MovementDto(movement));
         AccountDto origin = accountRepo.findByAccountNumber(movement.getOrigin());
         AccountDto destination = accountRepo.findByAccountNumber(movement.getDestination());
-      
-        //update balance
         int amount = movement.getAmount();
-        origin.setBalance(origin.getBalance() - amount);
-        destination.setBalance(destination.getBalance() + amount);
-
+      
+        if(movement.getType().equalsIgnoreCase("transfer")){
+            //update balance
+            origin.setBalance(origin.getBalance() - amount);
+            destination.setBalance(destination.getBalance() + amount);
+            accountRepo.save(destination);
+        }else{
+            //Case of payments and deposits
+            origin.setBalance(origin.getBalance() - amount);
+        }
+            
         accountRepo.save(origin);
-        accountRepo.save(destination);
+        
         
     }
 
