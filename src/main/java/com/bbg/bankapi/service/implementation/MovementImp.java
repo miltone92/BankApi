@@ -103,9 +103,10 @@ public class MovementImp extends MovementService{
                     int rate = (int)exchangeRates.getJSONObject("quotes").getDouble("USDCRC");
                     System.out.println("1 " + exchangeRates.getString("source") + " in CRC : " + exchangeRates.getJSONObject("quotes").getDouble("USDCRC")); 
 
-                    //Update origin balance before conversion
-                    origin.setBalance(origin.getBalance() - amount);
+
                     if(origin.getCurrency().equals("USD") && destination.getCurrency().equals("CRC")){
+                        //Update origin balance before conversion
+                        origin.setBalance(origin.getBalance() - amount);
                         
                         //Convert to CRC
                        amount = amount * rate;
@@ -115,9 +116,18 @@ public class MovementImp extends MovementService{
     
                     }else if( origin.getCurrency().equals("CRC") && destination.getCurrency().equals("USD")){
                         //Convert to USD
-                        amount = amount / rate;
+                        int fakeAmount = amount;
+                        if(movement.getCurrency().equals("USD")){
+                            fakeAmount = amount * rate;
+                        }else{
+                            amount = amount / rate;
+                        }
                         //Update destination balance
                         destination.setBalance(destination.getBalance() + amount);
+
+                        //Update origin balance after conversion
+                        
+                        origin.setBalance(origin.getBalance() - fakeAmount);
                     }
     
                 }catch (ClientProtocolException e) {
@@ -142,7 +152,7 @@ public class MovementImp extends MovementService{
             ////update balance
             accountRepo.save(destination);
         }else{
-            //Case of payments and deposits
+            //Case of payments for services
             origin.setBalance(origin.getBalance() - amount);
           
         }

@@ -30,17 +30,23 @@ public class AccountController{
     }
 
     @PostMapping
-    public void add(@RequestBody Account account) {
-        accountService.save(account);
+    public void add(@RequestBody Account account, @RequestHeader String jws) {
+        try {
+            // Check authorization
+            BankApiApplication.jwtConfig.validateKey(jws);
+            accountService.save(account);
+        } catch (JwtException e) {
+            System.out.println(e);
+        }
     }
 
     @GetMapping
-    public List<Account> getAccounts(@RequestParam(value = "owner", defaultValue = "" )String owner, @RequestParam(value = "number", defaultValue = "" )String number) {
-       // @RequestHeader String jws
+    public List<Account> getAccounts(@RequestParam(value = "owner", defaultValue = "" )String owner, @RequestParam(value = "number", defaultValue = "" )String number,  @RequestHeader String jws) {
+      
 
         try {
             // Check authorization
-           // BankApiApplication.jwtConfig.validateKey(jws);
+           BankApiApplication.jwtConfig.validateKey(jws);
             if(owner.equals("") && number.equals("")){
                 //find all accounts
                 return accountService.find();
