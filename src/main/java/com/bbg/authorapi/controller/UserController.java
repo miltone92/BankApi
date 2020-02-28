@@ -3,6 +3,7 @@ package com.bbg.authorapi.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bbg.authorapi.AuthoapiApplication;
 import com.bbg.authorapi.model.User;
 import com.bbg.authorapi.service.UserService;
 
@@ -47,8 +48,14 @@ public class UserController {
         }else if(!email.equals("") && !pw.equals("")){
             //find by email and pw
             User foundModel = userService.findByEmailAndPw(email, pw);
-            models.add(foundModel);
-            return models;
+
+            if (foundModel.getJwt() == null) {
+                foundModel.setJwt(AuthoapiApplication.jwtConfig.generateKey(foundModel.getUsername()));               
+                models.add(foundModel);
+                return models;
+            }
+
+
         }
        
         return null;

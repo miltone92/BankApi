@@ -69,6 +69,7 @@ public class MovementImp extends MovementService{
         }else{
             //Case of payments and deposits
             origin.setBalance(origin.getBalance() - amount);
+          
         }
             
         accountRepo.save(origin);

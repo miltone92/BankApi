@@ -40,7 +40,7 @@ public class MovementController{
             return movementService.find();
         }else if (!destination.equals("")){
 
-            //find account by destination account
+            //find account by destination account or origin
             List<Movement> models = new ArrayList<Movement>();
             models = movementService.findByDestination(destination);
             return models;

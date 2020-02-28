@@ -12,12 +12,13 @@ public class Account {
     String currency;
     String owner;
     String ownerName;
+    String name;
+    int creditLimit;
 
     public Account(){
-
     }
 
-    public Account(int balance, String type, String currency, String owner, String accountNumber, String IBAN, String ownerName){
+    public Account(int balance, String type, String currency, String owner, String accountNumber, String IBAN, String ownerName, String name, int creditLimit){
         this.balance = balance;
         this.currency = currency;
         this.type = type;
@@ -26,9 +27,10 @@ public class Account {
         this.accountNumber = accountNumber;
         this.IBAN = IBAN;
         this.ownerName = ownerName;
+        this.creditLimit = creditLimit;
     }
 
-    public Account( AccountDto account){
+    public Account(AccountDto account){
         this.balance = account.getBalance();
         this.currency = account.getCurrency();
         this.type = account.getType();
@@ -38,6 +40,8 @@ public class Account {
         this.IBAN = account.getIBAN();
         this.accountNumber = account.getAccountNumber();
         this.ownerName = account.getOwnerName();
+        this.name = account.getName();
+        this.creditLimit = account.getCreditLimit();
     }
     
 
@@ -104,6 +108,26 @@ public class Account {
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCreditLimit() {
+        return creditLimit;
+    }
+
+    public void setCreditLimit(int creditLimit) {
+        this.creditLimit = creditLimit;
+    }
+
+
+
+    
 
     
 }
